@@ -1,6 +1,6 @@
-name: Platform Tool
-description: Installs required Platform tool.
-author: Platform Team
+name: NPM Global
+description: Installs required global NPM package.
+author: Lendi Platform Team
 requirements:
   - bash
   - node

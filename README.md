@@ -12,7 +12,7 @@ Node installation on your Buildkite agents.
 ```yml
 steps:
   - plugins:
-    - lendi-au/platform-tool:
+    - lendi-au/npm-global:
           env: "NPM_TOKEN"
           package: "@private-org/package"
 ```
