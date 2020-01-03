@@ -1,0 +1,18 @@
+name: Platform Tool
+description: Installs required Platform tool.
+author: Platform Team
+requirements:
+  - bash
+  - node
+configuration:
+  properties:
+    registry:
+      type: string
+    token:
+      type: string
+    env:
+      type: string
+    file:
+      type: string
+    package:
+      type: string
