@@ -16,3 +16,5 @@ configuration:
       type: string
     package:
       type: string
+    authtype:
+      type: string

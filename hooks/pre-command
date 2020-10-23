@@ -7,6 +7,7 @@ TOKEN=${BUILDKITE_PLUGIN_NPM_GLOBAL_TOKEN:-''}
 FILE=${BUILDKITE_PLUGIN_NPM_GLOBAL_FILE:-''}
 ENV=${BUILDKITE_PLUGIN_NPM_GLOBAL_ENV:-''}
 PACKAGE=${BUILDKITE_PLUGIN_NPM_GLOBAL_PACKAGE:-''}
+AUTH_TYPE=${BUILDKITE_PLUGIN_NPM_GLOBAL_AUTHTYPE:-'TOKEN'}
 
 if { [[ -n "${FILE}" ]] && [[ -n "${ENV}" ]]; } \
   || { [[ -n "${FILE}" ]] && [[ -n "${TOKEN}" ]]; } \
@@ -24,7 +25,7 @@ then
   TOKEN="${!ENV}"
 fi
 
-if [[ -z $TOKEN ]] 
+if [[ -z "$TOKEN" ]]
 then
   echo ':no_entry_sign: :npm: :package: Failed! A valid NPM_TOKEN could not be determined'
   exit 1
@@ -32,18 +33,25 @@ fi
 
 echo '--- Setting up access for :no_entry_sign: :npm: :package:'
 
-cat > ~/.npmrc << EOF
+if [ "${AUTH_TYPE}" = "BASIC" ]; then
+cat > "${HOME}/.npmrc" << EOF
+registry=${REGISTRY}
+_auth=${TOKEN}
+EOF
+else
+cat > "${HOME}/.npmrc" << EOF
 ${REGISTRY}:_authToken=${TOKEN}
 EOF
+fi
 
 node --version
 
 # Check to see if we're logged in
 npm whoami > /dev/null
 
-mkdir -p ~/.npm-global
-npm config set prefix '~/.npm-global'
-export PATH=~/.npm-global/bin:$PATH
+mkdir -p "${HOME}/.npm-global"
+npm config set prefix "${HOME}/.npm-global"
+export PATH="${HOME}/.npm-global/bin:$PATH"
 
 # Install package we need.
-npm install --global ${PACKAGE}
+npm install --global "${PACKAGE}"
