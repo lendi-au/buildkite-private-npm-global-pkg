@@ -49,9 +49,9 @@ node --version
 # Check to see if we're logged in
 npm whoami > /dev/null
 
-mkdir -p "${HOME}/.npm-global"
-npm config set prefix "${HOME}/.npm-global"
-export PATH="${HOME}/.npm-global/bin:$PATH"
+mkdir -p "${HOME}/${BUILDKITE_AGENT_ID}/.npm-global"
+npm config set prefix "${HOME}/${BUILDKITE_AGENT_ID}/.npm-global"
+export PATH="${HOME}/${BUILDKITE_AGENT_ID}/.npm-global/bin:$PATH"
 
 # Install package we need.
 npm install --global "${PACKAGE}"
