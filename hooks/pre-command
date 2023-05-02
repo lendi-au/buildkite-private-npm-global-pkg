@@ -54,7 +54,7 @@ npm whoami > /dev/null
 if command -v yarn &> /dev/null
 then
   echo "Running with yarn"
-  mkdir -p "${HOME}/${BUILDKITE_AGENT_ID}/.npm-global"
+  mkdir -p "${HOME}/${BUILDKITE_AGENT_ID}/.config/yarn/global"
   yarn config set prefix "${HOME}/${BUILDKITE_AGENT_ID}/.config/yarn/global"
   export PATH="$PATH:`yarn global bin`"
   # Install package we need.
